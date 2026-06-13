@@ -22,7 +22,7 @@ Aqui ire subiendo las semanas conforme las vaya desarrollando.
 - Definicion de relaciones
 - Boceto del modelo relacional
 
-### Semana 2 – Diseno y gestion local
+### Semana 2 – Diseño y gestion local
 - Implementacion en base de datos relacional (SQLite / MySQL / PostgreSQL)
 - Creacion de tablas, claves primarias y foraneas
 - Operaciones CRUD basicas
