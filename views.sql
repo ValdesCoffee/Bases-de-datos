@@ -1,13 +1,3 @@
--- ============================================================
--- VIEWS.SQL - Consultas DQL: agregaciones, filtros y funciones
--- ============================================================
-
-
--- ============================================================
--- 1. CURSOS CON MÁS DE 2 ESTUDIANTES INSCRITOS
---    (GROUP BY + COUNT + HAVING)
--- ============================================================
-
 SELECT
     c.id_curso,
     c.nombre AS nombre_curso,
@@ -18,12 +8,6 @@ JOIN inscripciones i ON c.id_curso = i.id_curso
 GROUP BY c.id_curso, c.nombre, c.codigo
 HAVING COUNT(i.id_estudiante) > 2
 ORDER BY total_estudiantes DESC;
-
-
--- ============================================================
--- 2. ESTUDIANTES CUYA CALIFICACIÓN PROMEDIO SEA > PROMEDIO GENERAL
---    (AVG() + subconsulta)
--- ============================================================
 
 SELECT
     e.id_estudent,
@@ -39,13 +23,6 @@ HAVING AVG(i.calificacion_final) > (
 )
 ORDER BY promedio_estudiante DESC;
 
-
--- ============================================================
--- 3. CARRERAS CON ESTUDIANTES INSCRITOS EN CURSOS DEL SEMESTRE >= 2
---    (IN / EXISTS)
--- ============================================================
-
--- Con IN:
 SELECT DISTINCT e.carrera
 FROM estudiantes e
 WHERE e.id_estudent IN (
@@ -56,7 +33,7 @@ WHERE e.id_estudent IN (
 )
 ORDER BY e.carrera;
 
--- Con EXISTS (misma consulta, otro enfoque):
+
 SELECT DISTINCT e.carrera
 FROM estudiantes e
 WHERE EXISTS (
@@ -67,14 +44,6 @@ WHERE EXISTS (
       AND c.semestre >= 2
 )
 ORDER BY e.carrera;
-
-
--- ============================================================
--- 4. INDICADORES GENERALES
---    (ROUND, SUM, MAX, MIN, COUNT)
--- ============================================================
-
--- Indicadores por curso
 SELECT
     c.nombre AS nombre_curso,
     COUNT(i.id_inscripcion)                        AS total_inscritos,
@@ -88,7 +57,6 @@ LEFT JOIN inscripciones i ON c.id_curso = i.id_curso
 GROUP BY c.id_curso, c.nombre, c.creditos
 ORDER BY total_inscritos DESC;
 
--- Indicadores globales de la institución
 SELECT
     COUNT(DISTINCT e.id_estudent)                  AS total_estudiantes,
     COUNT(DISTINCT c.id_curso)                     AS total_cursos,
